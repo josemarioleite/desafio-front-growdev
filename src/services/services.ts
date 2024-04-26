@@ -5,7 +5,7 @@ import { Swal } from './swal'
 import { Student } from '../models/Students.interface'
 import { User } from '../models/User.interface'
 
-const baseURL = 'http://localhost:3300/api/v1/'
+const baseURL = 'http://localhost:3800/api/v1/'
 const conexion = axios.create({ baseURL })
 
 conexion.interceptors.request.use(
