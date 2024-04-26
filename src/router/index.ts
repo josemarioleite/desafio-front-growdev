@@ -16,8 +16,7 @@ const router = createRouter({
 
 router.beforeEach((to, from, next) => {
   if (to.meta.requiresAuth && !Storage.isLogged()) {
-    next('/auth')
-    window.location.reload()
+    next('/')
   } else {
     next()
   }

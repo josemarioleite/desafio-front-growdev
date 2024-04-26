@@ -1,11 +1,27 @@
 import axios, { AxiosResponse } from 'axios'
 import router from '@/router'
+import { Storage } from '../services/storage'
 import { Swal } from './swal'
 import { Student } from '../models/Students.interface'
 import { User } from '../models/User.interface'
 
 const baseURL = 'http://localhost:3300/api/v1/'
 const conexion = axios.create({ baseURL })
+
+conexion.interceptors.request.use(
+  (config) => {
+    const token = Storage.getTokenSession()
+
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`
+    }
+
+    return config
+  },
+  (error) => {
+    return Promise.reject(error)
+  }
+)
 
 function decodeMessageError (error: any, message: string) {
   return error?.response?.data?.message || message
@@ -41,7 +57,41 @@ export class StudentsAPI {
       const response: AxiosResponse<Student> = await conexion.get(`students?page=${page}&pageSize=${pageSize}&search=${search}`)
       return response.data
     } catch (error) {
-      Swal('Atenção', decodeMessageError(error,'Não foi possível obter os alunos'))
+      console.log(error)
+      Swal('Erro', decodeMessageError(error,'Não foi possível obter os alunos'))
+    }
+  }
+
+  async deleteStudent (ra: string) {
+    try {
+      const response: AxiosResponse<Student> = await conexion.delete(`students/${ra}`)
+
+      return Swal('Sucesso', decodeMessageError(response.data, 'Aluno foi excluído com sucesso'))
+    } catch (error) {
+      console.log(error)
+      Swal('Erro', decodeMessageError(error, 'Não foi possível deletar o aluno'))
+    }
+  }
+
+  async saveStudent (student: Partial<Student>) {
+    try {
+      const response: AxiosResponse<Student> = await conexion.post('students/create', student)
+
+      return Swal('Sucesso', decodeMessageError(response.data, 'Aluno foi adicionado com sucesso'))
+    } catch (error) {
+      console.log(error)
+      Swal('Erro', decodeMessageError(error, 'Não foi possível criar novo aluno'))
+    }
+  }
+
+  async updateStudent (ra: string, student: Partial<Student>) {
+    try {
+      const response: AxiosResponse<Student> = await conexion.put(`students/${ra}`, student)
+
+      return Swal('Sucesso', decodeMessageError(response.data, 'Aluno foi atualizado com sucesso'))
+    } catch (error) {
+      console.log(error)
+      Swal('Erro', decodeMessageError(error, 'Não foi possível atualizar o aluno'))
     }
   }
 }

@@ -10,4 +10,7 @@
 </script>
 
 <style lang="scss" scoped>
+.input {
+  margin-bottom: 10px;
+}
 </style>

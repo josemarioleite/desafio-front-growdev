@@ -18,7 +18,7 @@
 <script lang="ts" setup>
 import { ref } from 'vue'
 import { AuthService } from '../../services/services'
-import ProgressCircular from '../../components/ProgressCircular.vue'
+import { ProgressCircular } from '../../components'
 
 const email = ref('')
 const password = ref('')
@@ -54,6 +54,12 @@ const login = async () => {
       flex-direction: column;
       justify-content: center;
     }
+  }
+}
+
+@media only screen and (max-width: 499px) {
+  .auth__card {
+    width: 95%;
   }
 }
 </style>

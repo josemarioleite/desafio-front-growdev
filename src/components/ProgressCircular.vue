@@ -16,12 +16,3 @@ interface Props {
 
 defineProps<Props>()
 </script>
-
-<style lang="scss" scoped>
-.load {
-  // z-index: auto;
-  // position: absolute;
-  // bottom: 5%;
-  // width: 150px;
-}
-</style>

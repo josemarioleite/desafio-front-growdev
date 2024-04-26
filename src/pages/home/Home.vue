@@ -79,7 +79,11 @@ const addNewStudent = () => {
 
 @media only screen and (max-width: 499px) {
   .home__aside--title {
-    font-size: 2.5rem;
+    font-size: 2rem;
+  }
+
+  .home__table {
+    margin-top: 35px;
   }
 }
 </style>

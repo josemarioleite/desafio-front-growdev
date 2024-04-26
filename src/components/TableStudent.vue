@@ -30,10 +30,15 @@
     </template>
 
     <template v-slot:bottom>
-      <div class="text-center pt-2">
+      <div class="text-center">
         <v-pagination
           v-model="page"
+          active-color="blue"
+          density="compact"
+          elevation="5"
+          tile
           :length="pageCount"
+          :total-visible="5"
         ></v-pagination>
       </div>
     </template>
@@ -106,10 +111,16 @@ const loadItems = async (params: ParamsTablePagination) => {
   } catch (error) {
     console.log(error)
   } finally {
-    setTimeout(() => {
-      isLoading.value = false
-    }, 2000);
+    isLoading.value = false
   }
+}
+
+const updateTable = async () => {
+  await loadItems({
+    itemsPerPage: 5,
+    page: 1,
+    search: ''
+  })
 }
 
 let dialogRef = ref<InstanceType<typeof DialogStudent> | null>(null)
@@ -128,7 +139,7 @@ let openDialog = (paramType: string, paramUser: User) => {
 
 .table {
   min-height: 450px;
-  max-height: 460px;
+  max-height: 465px;
 
   &__search {
     width: 20vw;
