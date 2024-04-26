@@ -38,6 +38,7 @@ Para esse projeto foi usado:
 ### O que podemos melhorar ?
 
 Visando as melhorias do sistema, poderiar melhorar algumas coisas que com tempo maior poderiam ser feitas, como:
+
     - Melhorar o design, deixando cores combinando;
     - Incluir gerenciamento de estado, talvez utilizando Vuex ou Pinia;
     - Máscaras nos campos de texto, ex: CPF ###.###.###-##
